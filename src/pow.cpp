@@ -139,6 +139,7 @@ bool PermittedDifficultyTransition(const Consensus::Params& params, int64_t heig
 // the most significant bit of the last byte of the hash is set.
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params& params)
 {
+    printf("CheckProofOfWork: hash=%s  nBits=%d\n", hash.ToString().c_str(), nBits);
     if constexpr (G_FUZZING) return (hash.data()[31] & 0x80) == 0;
     return CheckProofOfWorkImpl(hash, nBits, params);
 }
@@ -151,10 +152,12 @@ bool CheckProofOfWorkImpl(uint256 hash, unsigned int nBits, const Consensus::Par
 
     bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
 
+    printf("before CheckProofOfWorkImpl: hash=%s  target=%s\n", hash.ToString().c_str(), bnTarget.ToString().c_str());
     // Check range
     if (fNegative || bnTarget == 0 || fOverflow || bnTarget > UintToArith256(params.powLimit))
         return false;
 
+    printf("after CheckProofOfWorkImpl: hash=%s  target=%s\n", hash.ToString().c_str(), bnTarget.ToString().c_str());
     // Check proof of work matches claimed amount
     if (UintToArith256(hash) > bnTarget)
         return false;

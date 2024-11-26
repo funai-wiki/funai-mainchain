@@ -1045,6 +1045,7 @@ bool BlockManager::ReadBlockFromDisk(CBlock& block, const FlatFilePos& pos) cons
         return false;
     }
 
+    printf("ReadBlockFromDisk: %s\n", block.GetHash().ToString().c_str());
     // Check the header
     if (!CheckProofOfWork(block.GetHash(), block.nBits, GetConsensus())) {
         LogError("%s: Errors in block header at %s\n", __func__, pos.ToString());

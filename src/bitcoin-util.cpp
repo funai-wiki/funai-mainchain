@@ -101,6 +101,7 @@ static void grind_task(uint32_t nBits, CBlockHeader header, uint32_t offset, uin
         do {
             if (UintToArith256(header.GetHash()) <= target) {
                 if (!found.exchange(true)) {
+                    printf("header.GetHash() = %s\n", header.GetHash().ToString().c_str());
                     proposed_nonce = header.nNonce;
                 }
                 return;
@@ -124,6 +125,7 @@ static int Grind(const std::vector<std::string>& args, std::string& strPrint)
     }
 
     uint32_t nBits = header.nBits;
+    printf("nBits: %x\n", nBits);
     std::atomic<bool> found{false};
     uint32_t proposed_nonce{};
 
@@ -138,6 +140,7 @@ static int Grind(const std::vector<std::string>& args, std::string& strPrint)
     }
     if (found) {
         header.nNonce = proposed_nonce;
+        printf("Nonce: %x\n", header.nNonce);
     } else {
         strPrint = "Could not satisfy difficulty target";
         return EXIT_FAILURE;

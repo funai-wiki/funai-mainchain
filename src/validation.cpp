@@ -1934,7 +1934,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     if (halvings >= 64)
         return 0;
 
-    CAmount nSubsidy = 50 * COIN;
+    CAmount nSubsidy = 15 * COIN;
     // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
     nSubsidy >>= halvings;
     return nSubsidy;
@@ -3048,6 +3048,7 @@ bool Chainstate::DisconnectTip(BlockValidationState& state, DisconnectedBlockTra
     std::shared_ptr<CBlock> pblock = std::make_shared<CBlock>();
     CBlock& block = *pblock;
     if (!m_blockman.ReadBlockFromDisk(block, *pindexDelete)) {
+        printf("Test DisconnectTip(): Failed to read block\n");
         LogError("DisconnectTip(): Failed to read block\n");
         return false;
     }
@@ -3328,17 +3329,21 @@ void Chainstate::PruneBlockIndexCandidates() {
  */
 bool Chainstate::ActivateBestChainStep(BlockValidationState& state, CBlockIndex* pindexMostWork, const std::shared_ptr<const CBlock>& pblock, bool& fInvalidFound, ConnectTrace& connectTrace)
 {
+    printf("ActivateBestChainStep begin\n");
     AssertLockHeld(cs_main);
     if (m_mempool) AssertLockHeld(m_mempool->cs);
 
     const CBlockIndex* pindexOldTip = m_chain.Tip();
     const CBlockIndex* pindexFork = m_chain.FindFork(pindexMostWork);
+    printf("after pindexFork: %s\n");
 
     // Disconnect active blocks which are no longer in the best chain.
     bool fBlocksDisconnected = false;
     DisconnectedBlockTransactions disconnectpool{MAX_DISCONNECTED_TX_POOL_BYTES};
     while (m_chain.Tip() && m_chain.Tip() != pindexFork) {
+        printf("Disconnecting block %s\n", m_chain.Tip()->GetBlockHash().ToString().c_str());
         if (!DisconnectTip(state, &disconnectpool)) {
+            printf("DisconnectTip failed\n");
             // This is likely a fatal error, but keep the mempool consistent,
             // just in case. Only remove from the mempool in this case.
             MaybeUpdateMempoolForReorg(disconnectpool, false);
@@ -3369,8 +3374,10 @@ bool Chainstate::ActivateBestChainStep(BlockValidationState& state, CBlockIndex*
         }
         nHeight = nTargetHeight;
 
+        printf("Connecting blocks %d to %d\n", vpindexToConnect.front()->nHeight, vpindexToConnect.back()->nHeight);
         // Connect new blocks.
         for (CBlockIndex* pindexConnect : vpindexToConnect | std::views::reverse) {
+            printf("Connecting block %s\n", pindexConnect->GetBlockHash().ToString().c_str());
             if (!ConnectTip(state, pindexConnect, pindexConnect == pindexMostWork ? pblock : std::shared_ptr<const CBlock>(), connectTrace, disconnectpool)) {
                 if (state.IsInvalid()) {
                     // The block violates a consensus rule.
@@ -3450,6 +3457,7 @@ static void LimitValidationInterfaceQueue(ValidationSignals& signals) LOCKS_EXCL
 
 bool Chainstate::ActivateBestChain(BlockValidationState& state, std::shared_ptr<const CBlock> pblock)
 {
+    printf("before ActivateBestChain\n");
     AssertLockNotHeld(m_chainstate_mutex);
 
     // Note that while we're often called here from ProcessNewBlock, this is
@@ -3471,6 +3479,7 @@ bool Chainstate::ActivateBestChain(BlockValidationState& state, std::shared_ptr<
             "Please report this as a bug. %s\n", CLIENT_BUGREPORT);
         return false;
     }
+    printf("ActivateBestChain\n");
 
     CBlockIndex *pindexMostWork = nullptr;
     CBlockIndex *pindexNewTip = nullptr;
@@ -3490,6 +3499,7 @@ bool Chainstate::ActivateBestChain(BlockValidationState& state, std::shared_ptr<
             // Lock transaction pool for at least as long as it takes for connectTrace to be consumed
             LOCK(MempoolMutex());
             const bool was_in_ibd = m_chainman.IsInitialBlockDownload();
+            printf("was_in_ibd: %d\n", was_in_ibd);
             CBlockIndex* starting_tip = m_chain.Tip();
             bool blocks_connected = false;
             do {
@@ -3508,8 +3518,10 @@ bool Chainstate::ActivateBestChain(BlockValidationState& state, std::shared_ptr<
 
                 bool fInvalidFound = false;
                 std::shared_ptr<const CBlock> nullBlockPtr;
+                printf("ActivateBestChainStep\n");
                 if (!ActivateBestChainStep(state, pindexMostWork, pblock && pblock->GetHash() == pindexMostWork->GetBlockHash() ? pblock : nullBlockPtr, fInvalidFound, connectTrace)) {
                     // A system error occurred
+                    printf("ActivateBestChainStep failed\n");
                     return false;
                 }
                 blocks_connected = true;
@@ -3569,6 +3581,7 @@ bool Chainstate::ActivateBestChain(BlockValidationState& state, std::shared_ptr<
             }
         } // release cs_main
         // When we reach this point, we switched to a new tip (stored in pindexNewTip).
+        printf("New tip: %s\n", pindexNewTip->GetBlockHash().ToString().c_str());
 
         if (exited_ibd) {
             // If a background chainstate is in use, we may need to rebalance our
@@ -3605,6 +3618,7 @@ bool Chainstate::ActivateBestChain(BlockValidationState& state, std::shared_ptr<
     if (!FlushStateToDisk(state, FlushStateMode::PERIODIC)) {
         return false;
     }
+    printf("Flushed state to disk\n");
 
     return true;
 }
