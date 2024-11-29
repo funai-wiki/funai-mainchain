@@ -136,7 +136,6 @@ public:
 
         genesis = CreateGenesisBlock(1732170343, 6001492, 0x1e00ffff, 1, 15 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        printf("genesis.GetHash = %s\n", consensus.hashGenesisBlock.ToString().c_str());
         assert(consensus.hashGenesisBlock == uint256{"000000c1cd606a3fb8363249e27052122bd8f1893ea6a80df3a895fd3ff63c91"});
         assert(genesis.hashMerkleRoot == uint256{"a0f5f5ac793fd5e9ecf599074cd953936d59915e87df466f11888d2e4432b0f0"});
         // Note that of those which support the service bits prefix, most only support a subset of
@@ -242,8 +241,8 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = 1628640000; // August 11th, 2021
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].min_activation_height = 0; // No activation delay
 
-        consensus.nMinimumChainWork = uint256{"000000000000000000000000000000000000000000000f209695166be8b61fa9"};
-        consensus.defaultAssumeValid = uint256{"000000000000000465b1a66c9f386308e8c75acef9201f3f577811da09fc90ad"}; // 2873500
+        consensus.nMinimumChainWork = uint256{};
+        consensus.defaultAssumeValid = uint256{}; // 2873500
 
         pchMessageStart[0] = 0xbd;
         pchMessageStart[1] = 0x23;
@@ -256,8 +255,8 @@ public:
 
         genesis = CreateGenesisBlock(1732851341, 514, 0x2000ffff, 1, 15 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256{});
-        assert(genesis.hashMerkleRoot == uint256{});
+        assert(consensus.hashGenesisBlock == uint256{"003e18ffe96725591979e7e4d7337f106437c9b0b9d7aacadedcade55d9cd494"});
+        assert(genesis.hashMerkleRoot == uint256{"a0f5f5ac793fd5e9ecf599074cd953936d59915e87df466f11888d2e4432b0f0"});
 
         vFixedSeeds.clear();
         vSeeds.clear();
