@@ -223,7 +223,7 @@ public:
         consensus.CSVHeight = 770112; // 00000000025e930139bac5c6c31a403776da130831ab85be56578f3fa75369bb
         consensus.SegwitHeight = 834624; // 00000000002b980fcd729daaa248fd9316a5200e9b367f4ff2c42453e84201ca
         consensus.MinBIP9WarningHeight = 836640; // segwit activation height + miner confirmation window
-        consensus.powLimit = uint256{"00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
+        consensus.powLimit = uint256{"00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 10 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
@@ -245,28 +245,28 @@ public:
         consensus.nMinimumChainWork = uint256{"000000000000000000000000000000000000000000000f209695166be8b61fa9"};
         consensus.defaultAssumeValid = uint256{"000000000000000465b1a66c9f386308e8c75acef9201f3f577811da09fc90ad"}; // 2873500
 
-        pchMessageStart[0] = 0x0b;
-        pchMessageStart[1] = 0x11;
-        pchMessageStart[2] = 0x09;
-        pchMessageStart[3] = 0x07;
+        pchMessageStart[0] = 0xbd;
+        pchMessageStart[1] = 0x23;
+        pchMessageStart[2] = 0x0f;
+        pchMessageStart[3] = 0x45;
         nDefaultPort = 18333;
         nPruneAfterHeight = 1000;
         m_assumed_blockchain_size = 93;
         m_assumed_chain_state_size = 19;
 
-        genesis = CreateGenesisBlock(1296688602, 414098458, 0x1d00ffff, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1732851341, 514, 0x2000ffff, 1, 15 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256{"000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"});
-        assert(genesis.hashMerkleRoot == uint256{"4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"});
+        assert(consensus.hashGenesisBlock == uint256{""});
+        assert(genesis.hashMerkleRoot == uint256{""});
 
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("testnet-seed.bitcoin.jonasschnelli.ch.");
-        vSeeds.emplace_back("seed.tbtc.petertodd.net.");
-        vSeeds.emplace_back("seed.testnet.bitcoin.sprovoost.nl.");
-        vSeeds.emplace_back("testnet-seed.bluematt.me."); // Just a static list of stable node(s), only supports x9
-        vSeeds.emplace_back("seed.testnet.achownodes.xyz."); // Ava Chow, only supports x1, x5, x9, x49, x809, x849, xd, x400, x404, x408, x448, xc08, xc48, x40c
+//        vSeeds.emplace_back("testnet-seed.bitcoin.jonasschnelli.ch.");
+//        vSeeds.emplace_back("seed.tbtc.petertodd.net.");
+//        vSeeds.emplace_back("seed.testnet.bitcoin.sprovoost.nl.");
+//        vSeeds.emplace_back("testnet-seed.bluematt.me."); // Just a static list of stable node(s), only supports x9
+//        vSeeds.emplace_back("seed.testnet.achownodes.xyz."); // Ava Chow, only supports x1, x5, x9, x49, x809, x849, xd, x400, x404, x408, x448, xc08, xc48, x40c
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
@@ -276,32 +276,32 @@ public:
 
         bech32_hrp = "tb";
 
-        vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_test), std::end(chainparams_seed_test));
+//        vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_test), std::end(chainparams_seed_test));
 
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
 
         checkpointData = {
             {
-                {546, uint256{"000000002a936ca763904c3c35fce2f3556c559c0214345d31b1bcebf76acb70"}},
+                {0, uint256{"003e18ffe96725591979e7e4d7337f106437c9b0b9d7aacadedcade55d9cd494"}},
             }
         };
 
-        m_assumeutxo_data = {
-            {
-                .height = 2'500'000,
-                .hash_serialized = AssumeutxoHash{uint256{"f841584909f68e47897952345234e37fcd9128cd818f41ee6c3ca68db8071be7"}},
-                .m_chain_tx_count = 66484552,
-                .blockhash = consteval_ctor(uint256{"0000000000000093bcb68c03a9a168ae252572d348a2eaeba2cdf9231d73206f"}),
-            }
-        };
-
-        chainTxData = ChainTxData{
-            // Data from RPC: getchaintxstats 4096 000000000000000465b1a66c9f386308e8c75acef9201f3f577811da09fc90ad
-            .nTime    = 1723613341,
-            .tx_count = 187917082,
-            .dTxRate  = 3.265051477698455,
-        };
+//        m_assumeutxo_data = {
+//            {
+//                .height = 2'500'000,
+//                .hash_serialized = AssumeutxoHash{uint256{"f841584909f68e47897952345234e37fcd9128cd818f41ee6c3ca68db8071be7"}},
+//                .m_chain_tx_count = 66484552,
+//                .blockhash = consteval_ctor(uint256{"0000000000000093bcb68c03a9a168ae252572d348a2eaeba2cdf9231d73206f"}),
+//            }
+//        };
+//
+//        chainTxData = ChainTxData{
+//            // Data from RPC: getchaintxstats 4096 000000000000000465b1a66c9f386308e8c75acef9201f3f577811da09fc90ad
+//            .nTime    = 1723613341,
+//            .tx_count = 187917082,
+//            .dTxRate  = 3.265051477698455,
+//        };
     }
 };
 
