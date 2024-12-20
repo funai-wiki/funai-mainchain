@@ -98,7 +98,7 @@ public:
         consensus.CSVHeight = 419328; // 000000000000000004a1b34462cb8aeebd5799177f7a29cf28f2d1961716b5b5
         consensus.SegwitHeight = 481824; // 0000000000000000001c8018d9cb3b742ef25114f27563e3fc4a1902167f9893
         consensus.MinBIP9WarningHeight = 483840; // segwit activation height + miner confirmation window
-        consensus.powLimit = uint256{"000000ffff000000000000000000000000000000000000000000000000000000"};
+        consensus.powLimit = uint256{"00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 10 * 60;
         consensus.fPowAllowMinDifficultyBlocks = false;
@@ -134,9 +134,9 @@ public:
         m_assumed_blockchain_size = 620;
         m_assumed_chain_state_size = 14;
 
-        genesis = CreateGenesisBlock(1732170343, 6001492, 0x1e00ffff, 1, 15 * COIN);
+        genesis = CreateGenesisBlock(1732851341, 514, 0x2000ffff, 1, 15 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256{"000000c1cd606a3fb8363249e27052122bd8f1893ea6a80df3a895fd3ff63c91"});
+        assert(consensus.hashGenesisBlock == uint256{"003e18ffe96725591979e7e4d7337f106437c9b0b9d7aacadedcade55d9cd494"});
         assert(genesis.hashMerkleRoot == uint256{"a0f5f5ac793fd5e9ecf599074cd953936d59915e87df466f11888d2e4432b0f0"});
         // Note that of those which support the service bits prefix, most only support a subset of
         // possible options.
@@ -168,7 +168,7 @@ public:
 
         checkpointData = {
             {
-                  {0, uint256{"000000c1cd606a3fb8363249e27052122bd8f1893ea6a80df3a895fd3ff63c91"}},
+                  {0, uint256{"003e18ffe96725591979e7e4d7337f106437c9b0b9d7aacadedcade55d9cd494"}},
 //                { 11111, uint256{"0000000069e244f73d78e8fd29ba2fd2ed618bd6fa2ee92559f542fdb26e7c1d"}},
 //                { 33333, uint256{"000000002dd5588a74784eaa7ab0507a18ad16a236e7b1ce69f00d7ddfb5d0a6"}},
 //                { 74000, uint256{"0000000000573993a3c9e41ce34471c079dcf5f52a0e824a81e7f953b8661a20"}},
