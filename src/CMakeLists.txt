@@ -305,17 +305,17 @@ target_link_libraries(bitcoin_node
 
 # Bitcoin Core bitcoind.
 if(BUILD_DAEMON)
-  add_executable(bitcoind
+  add_executable(mainchaind
     bitcoind.cpp
     init/bitcoind.cpp
   )
-  add_windows_resources(bitcoind bitcoind-res.rc)
-  target_link_libraries(bitcoind
+  add_windows_resources(mainchaind bitcoind-res.rc)
+  target_link_libraries(mainchaind
     core_interface
     bitcoin_node
     $<TARGET_NAME_IF_EXISTS:bitcoin_wallet>
   )
-  list(APPEND installable_targets bitcoind)
+  list(APPEND installable_targets mainchaind)
 endif()
 if(WITH_MULTIPROCESS)
   add_executable(bitcoin-node
@@ -361,8 +361,8 @@ target_link_libraries(bitcoin_cli
 
 # Bitcoin Core RPC client
 if(BUILD_CLI)
-  add_executable(bitcoin-cli bitcoin-cli.cpp)
-  add_windows_resources(bitcoin-cli bitcoin-cli-res.rc)
+  add_executable(mainchain-cli bitcoin-cli.cpp)
+  add_windows_resources(mainchain-cli bitcoin-cli-res.rc)
   target_link_libraries(bitcoin-cli
     core_interface
     bitcoin_cli
