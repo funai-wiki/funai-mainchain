@@ -363,7 +363,7 @@ target_link_libraries(bitcoin_cli
 if(BUILD_CLI)
   add_executable(mainchain-cli bitcoin-cli.cpp)
   add_windows_resources(mainchain-cli bitcoin-cli-res.rc)
-  target_link_libraries(bitcoin-cli
+  target_link_libraries(mainchain-cli
     core_interface
     bitcoin_cli
     bitcoin_common
@@ -371,32 +371,32 @@ if(BUILD_CLI)
     libevent::core
     libevent::extra
   )
-  list(APPEND installable_targets bitcoin-cli)
+  list(APPEND installable_targets mainchain-cli)
 endif()
 
 
 if(BUILD_TX)
-  add_executable(bitcoin-tx bitcoin-tx.cpp)
-  add_windows_resources(bitcoin-tx bitcoin-tx-res.rc)
-  target_link_libraries(bitcoin-tx
+  add_executable(mainchain-tx bitcoin-tx.cpp)
+  add_windows_resources(mainchain-tx bitcoin-tx-res.rc)
+  target_link_libraries(mainchain-tx
     core_interface
     bitcoin_common
     bitcoin_util
     univalue
   )
-  list(APPEND installable_targets bitcoin-tx)
+  list(APPEND installable_targets mainchain-tx)
 endif()
 
 
 if(BUILD_UTIL)
-  add_executable(bitcoin-util bitcoin-util.cpp)
-  add_windows_resources(bitcoin-util bitcoin-util-res.rc)
-  target_link_libraries(bitcoin-util
+  add_executable(mainchain-util bitcoin-util.cpp)
+  add_windows_resources(mainchain-util bitcoin-util-res.rc)
+  target_link_libraries(mainchain-util
     core_interface
     bitcoin_common
     bitcoin_util
   )
-  list(APPEND installable_targets bitcoin-util)
+  list(APPEND installable_targets mainchain-util)
 endif()
 
 
@@ -410,7 +410,7 @@ if(BUILD_KERNEL_LIB)
 endif()
 
 if(BUILD_UTIL_CHAINSTATE)
-  add_executable(bitcoin-chainstate
+  add_executable(mainchain-chainstate
     bitcoin-chainstate.cpp
   )
   # TODO: The `SKIP_BUILD_RPATH` property setting can be deleted
@@ -419,10 +419,10 @@ if(BUILD_UTIL_CHAINSTATE)
   # Relevant discussions:
   # - https://github.com/hebasto/bitcoin/pull/236#issuecomment-2183120953
   # - https://github.com/bitcoin/bitcoin/pull/30312#issuecomment-2191235833
-  set_target_properties(bitcoin-chainstate PROPERTIES
+  set_target_properties(mainchain-chainstate PROPERTIES
     SKIP_BUILD_RPATH OFF
   )
-  target_link_libraries(bitcoin-chainstate
+  target_link_libraries(mainchain-chainstate
     PRIVATE
       core_interface
       bitcoinkernel
