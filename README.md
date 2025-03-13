@@ -1,24 +1,62 @@
-Bitcoin Core integration/staging tree
+Fun-AI mainchain
 =====================================
 
-https://bitcoincore.org
-
-For an immediately usable, binary version of the Bitcoin Core software, see
-https://bitcoincore.org/en/download/.
-
-What is Bitcoin Core?
+What is FUN-AI mainchain?
 ---------------------
 
-Bitcoin Core connects to the Bitcoin peer-to-peer network to download and fully
-validate blocks and transactions. It also includes a wallet and graphical user
-interface, which can be optionally built.
+The FUN-AI Mainchain plays a crucial role in the FUN-AI ecosystem, acting as the primary settlement layer for AI-generated content (AIGC) task computation. Its key responsibilities include:
 
-Further information about Bitcoin Core is available in the [doc folder](/doc).
+⸻
+
+1. Settlement Layer for AI Task Computation
+	•	The Mainchain records AI task execution states and computation results, ensuring transparency and verifiability.
+	•	Tasks such as publishing, executing, and confirming AI-generated results are settled on the Mainchain.
+
+⸻
+
+2. Ensuring Computational Integrity
+	•	On-chain task records: Execution hashes, computing node identities, and timestamps are stored on-chain, ensuring immutability.
+	•	Result validation: Computation results submitted by nodes undergo consensus verification, preventing fraud or manipulation.
+	•	Preventing double spending: The Mainchain enforces unique reward distribution through its consensus mechanism.
+
+⸻
+
+3. Token Economy and Incentive Mechanism
+	•	Rewarding computing nodes: Nodes that contribute computational resources receive FUN tokens on the Mainchain.
+	•	Token issuance and management: The Mainchain governs the issuance, distribution, and transaction settlement of FUN-AI tokens.
+	•	Staking and governance: Advanced tasks may require nodes to stake tokens to prevent malicious activity, and the Mainchain supports governance through community voting.
+
+⸻
+
+4. Task Scheduling and Resource Coordination
+	•	The Mainchain facilitates the matching of AI tasks with suitable computing nodes.
+	•	It ensures efficient allocation of computing resources based on demand and supply.
+	•	Computation results are securely stored and referenced, ensuring data consistency.
+
+⸻
+
+5. Security Anchoring with Bitcoin
+	•	Potential integration with Bitcoin for security anchoring, leveraging Bitcoin’s immutability to store AI task proofs.
+	•	Similar to the Stacks model, the FUN-AI Mainchain may use Bitcoin anchoring to enhance security and prevent tampering.
+
+⸻
+
+6. Smart Contract Support for AI Computation
+	•	The Mainchain may support Clarity or EVM-compatible smart contracts, enabling:
+	•	Automated AI task execution rules.
+	•	Payment and validation mechanisms for AI computations.
+	•	DeFi-like economic models for task bidding, computing power leasing, and reward distribution.
+
+⸻
+
+Conclusion
+
+The FUN-AI Mainchain serves as the settlement layer, security framework, incentive hub, and task coordination system for AI task computation. It ensures trustworthy execution, decentralized governance, and efficient resource allocation, potentially anchoring to Bitcoin for enhanced security and reliability.
 
 License
 -------
 
-Bitcoin Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
+FUN-AI mainchain is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 Development Process
