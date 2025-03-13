@@ -4,7 +4,7 @@ Fun-AI mainchain
 What is FUN-AI mainchain?
 ---------------------
 
-The FUN-AI Mainchain plays a crucial role in the FUN-AI ecosystem, acting as the primary settlement layer for AI-generated content (AIGC) task computation. Its key responsibilities include:
+The FUN-AI Mainchain plays a crucial role in the FUN-AI ecosystem, acting as the primary settlement layer for AI-generated content (AIGC) task computation. It forks from Bitcoin core. Its key responsibilities include:
 
 
 1. Settlement Layer for AI Task Computation
